@@ -44,7 +44,7 @@
 		//重新加载列表  数据
 		$scope.reloadList = function() {
 			//切换页码
-			$scope.findByPage($scope.paginationConf.currentPage,
+			$scope.search($scope.paginationConf.currentPage,
 					$scope.paginationConf.itemsPerPage);
 		}
 
@@ -62,7 +62,7 @@
 
 		//品牌增加 or update
 		$scope.save = function() {
-		//定义全局的访问uri变量
+			//定义全局的访问uri变量
 			var methodName = "add";
 			//因为修改和增加在一个页面中，所以需要判断是否传入了id值，修改需要传id值进行回显
 			if ($scope.entity.id != null) {
@@ -85,6 +85,52 @@
 						$scope.entity = response;
 					})
 		}
+
+
+		 //定义选中的id集合
+		 $scope.selectedIds=[];
+		 
+		 //genxin更新复选框
+		 $scope.updateSelected = function($event,id){
+		 	if($event.target.checked){
+		 		$scope.selectedIds.push(id);
+		 	}else{
+		 		var idx = $scope.selectedIds.indexOf(id);
+		 		$scope.selectedIds.splice(idx,1);
+		 	}
+		 }
+		 
+		 $scope.delete = function(){
+		 
+		 if(confirm('确定删除？')){
+		 	$http.get('../brand/delete.do?ids='+$scope.selectedIds).success(
+		 		function(response){
+		 			if(response.success){
+		 			$scope.reloadList();
+		 			}else{
+		 			alert(response.message);
+		 			}
+		 		}
+		 	);
+		 }
+		 }
+		 
+		 //定义搜索对象
+		 $scope.searchEntity={};
+		 
+		 //条件查询
+		 $scope.search = function(currentPage,pageSize){
+		 	 $http.post('../brand/search.do?currentPage='+currentPage+"&pageSize="+pageSize, $scope.searchEntity).success(
+		 	 
+		 	 function(response){
+		 	 	$scope.paginationConf.totalItems=response.total;//总记录数  
+    			$scope.list=response.rows;//给列表变量赋值 
+		 	 }
+		 	 
+		 	 )
+		 	 
+		 	
+		 }
 
 	});
 </script>
@@ -110,7 +156,8 @@
 							data-toggle="modal" data-target="#editModal" ng-click="entity={}">
 							<i class="fa fa-file-o"></i> 新建
 						</button>
-						<button type="button" class="btn btn-default" title="删除">
+						<button ng-click="delete()" type="button" class="btn btn-default"
+							title="删除">
 							<i class="fa fa-trash-o"></i> 删除
 						</button>
 						<button type="button" class="btn btn-default" title="刷新"
@@ -121,7 +168,11 @@
 				</div>
 			</div>
 			<div class="box-tools pull-right">
-				<div class="has-feedback"></div>
+				<div class="has-feedback">
+					品牌名称:<input ng-model="searchEntity.name"> 品牌首字母:<input
+						ng-model="searchEntity.firstChar">
+					<button class="btn btn-default" ng-click="reloadList()">查询</button>
+				</div>
 			</div>
 			<!--工具栏/-->
 
@@ -141,7 +192,8 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="brand in list">
-						<td><input type="checkbox"></td>
+						<td><input type="checkbox"
+							ng-click="updateSelected($event,brand.id)"></td>
 						<td>{{brand.id}}</td>
 						<td>{{brand.name}}</td>
 						<td>{{brand.firstChar}}</td>

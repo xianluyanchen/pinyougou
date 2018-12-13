@@ -2,10 +2,10 @@ package com.pinyougou.manager.controller;
 
 import java.util.List;
 
-import org.jboss.netty.handler.timeout.ReadTimeoutException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -22,6 +22,25 @@ public class BrandController {
 
 	@Reference
 	private BrandService brandService;
+	
+	
+	@RequestMapping("/search")
+	public PageResult search(@RequestBody TbBrand tbBrand,@RequestParam(name="currentPage")int currentPage,@RequestParam(name="pageSize")int pageSize) {
+		PageResult findByPage = brandService.findByPage(tbBrand, currentPage, pageSize);
+		
+		return findByPage;
+	}
+	
+	@RequestMapping("/delete")
+	public ResultInformation delete(long[] ids) {
+		try {
+			brandService.delete(ids);
+			return new ResultInformation(true,"删除成功！");
+		} catch (Exception e) {
+			// TODO: handle exception
+			return new ResultInformation(false,"删除失败");
+		}
+	}
 	
 	@RequestMapping("/add")
 	public ResultInformation add(@RequestBody TbBrand brand) {

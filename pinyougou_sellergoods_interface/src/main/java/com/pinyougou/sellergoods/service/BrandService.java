@@ -13,6 +13,14 @@ import entity.PageResult;
  */
 public interface BrandService {
 	
+	public PageResult findByPage(TbBrand brand,int currentPage,int pageSize) ;
+	
+	/**
+	 * 删除选中的品牌
+	 * @param ids
+	 */
+	public void delete(long[] ids);
+	
 	
 
 	/**
