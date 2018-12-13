@@ -19,7 +19,17 @@ public interface BrandService {
 	 */
 	 public List<TbBrand> findAll(); 
 	 
+	 /**
+	  * 进行分页查询功能
+	  * @param currentPage 当前页码
+	  * @param pageSize	每页的条数
+	  * @return
+	  */
 	 public PageResult findByPage(int currentPage,int pageSize);
 
+	 /**
+	  * 实现增加功能
+	  */
+	 public void add(TbBrand brand);
 	
 }

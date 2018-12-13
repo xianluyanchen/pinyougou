@@ -12,6 +12,7 @@ import com.pinyougou.pojo.TbBrand;
 import com.pinyougou.sellergoods.service.BrandService;
 
 import entity.PageResult;
+import entity.ResultInformation;
 
 @Service
 public class BrandServiceImpl implements BrandService {
@@ -19,7 +20,19 @@ public class BrandServiceImpl implements BrandService {
 	@Autowired
 	private TbBrandMapper brandMapper;
 
+	
+/**
+ * 品牌增加功能
+ */
+	@Override
+	public void add(TbBrand brand) {
+		ResultInformation resultInformation = new ResultInformation();
+			brandMapper.insert(brand);
+	}
 
+	/**
+	 * cha查询所有
+	 */
 	@Override
 	public List<TbBrand> findAll() {
 		
@@ -28,6 +41,9 @@ public class BrandServiceImpl implements BrandService {
 		return list;
 	}
 
+	/**
+	 * 分页查询
+	 */
 	@Override
 	public PageResult findByPage(int currentPage, int pageSize) {
 		
