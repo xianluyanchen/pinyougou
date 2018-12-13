@@ -12,6 +12,8 @@ import entity.PageResult;
  *
  */
 public interface BrandService {
+	
+	
 
 	/**
 	 * chaxun查询所有品牌
@@ -31,5 +33,12 @@ public interface BrandService {
 	  * 实现增加功能
 	  */
 	 public void add(TbBrand brand);
+	 
+	 /**
+	  * 品牌修改
+	  * @param brand
+	  */
+	 public void update(TbBrand brand);
 	
+	 public TbBrand findById(long id);
 }

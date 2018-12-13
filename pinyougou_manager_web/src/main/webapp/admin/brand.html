@@ -60,16 +60,29 @@
 					});
 		}
 
-		//品牌增加
-
-		$scope.add = function() {
-			$http.post('../brand/add.do', $scope.entity).success(
-					function(response) {
+		//品牌增加 or update
+		$scope.save = function() {
+		//定义全局的访问uri变量
+			var methodName = "add";
+			//因为修改和增加在一个页面中，所以需要判断是否传入了id值，修改需要传id值进行回显
+			if ($scope.entity.id != null) {
+				methodName = "update";
+			}
+			$http.post('../brand/' + methodName + '.do', $scope.entity)
+					.success(function(response) {
 						if (response.success) {
 							$scope.reloadList();
 						} else {
 							alert(response.message);
 						}
+					})
+		}
+
+		//根据id查询单个品牌信息
+		$scope.findById = function(id) {
+			$http.get('../brand/findById.do?id=' + id).success(
+					function(response) {
+						$scope.entity = response;
 					})
 		}
 
@@ -94,7 +107,7 @@
 				<div class="form-group form-inline">
 					<div class="btn-group">
 						<button type="button" class="btn btn-default" title="新建"
-							data-toggle="modal" data-target="#editModal">
+							data-toggle="modal" data-target="#editModal" ng-click="entity={}">
 							<i class="fa fa-file-o"></i> 新建
 						</button>
 						<button type="button" class="btn btn-default" title="删除">
@@ -134,7 +147,8 @@
 						<td>{{brand.firstChar}}</td>
 						<td class="text-center">
 							<button type="button" class="btn bg-olive btn-xs"
-								data-toggle="modal" data-target="#editModal">修改</button>
+								data-toggle="modal" data-target="#editModal"
+								ng-click="findById(brand.id)">修改</button>
 						</td>
 					</tr>
 				</tbody>
@@ -166,18 +180,19 @@
 					<table class="table table-bordered table-striped" width="800px">
 						<tr>
 							<td>品牌名称</td>
-							<td><input class="form-control" placeholder="品牌名称" ng-model="entity.name">
-							</td>
+							<td><input class="form-control" placeholder="品牌名称"
+								ng-model="entity.name"></td>
 						</tr>
 						<tr>
 							<td>首字母</td>
-							<td><input class="form-control" placeholder="首字母" ng-model="entity.firstChar"></td>
+							<td><input class="form-control" placeholder="首字母"
+								ng-model="entity.firstChar"></td>
 						</tr>
 					</table>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-success" data-dismiss="modal"
-						aria-hidden="true" ng-click="add()">保存</button>
+						aria-hidden="true" ng-click="save()">保存</button>
 					<button class="btn btn-default" data-dismiss="modal"
 						aria-hidden="true">关闭</button>
 				</div>

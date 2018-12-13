@@ -2,6 +2,7 @@ package com.pinyougou.manager.controller;
 
 import java.util.List;
 
+import org.jboss.netty.handler.timeout.ReadTimeoutException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,5 +45,25 @@ public class BrandController {
 		
 		PageResult pageResult = brandService.findByPage(currentPage, pageSize);
 		return pageResult;
+	}
+	
+	@RequestMapping("/findById")
+	public TbBrand findById(long id) {
+		TbBrand findById = brandService.findById(id);
+		return findById;
+	}
+	
+	@RequestMapping("/update")
+	public ResultInformation update(@RequestBody TbBrand brand) {
+		try {
+			brandService.update(brand);
+			return new ResultInformation(true,"修改成功");
+		} catch (Exception e) {
+			// TODO: handle exception
+			return new ResultInformation(false,"修改失败");
+		}
+
+		
+
 	}
 }
