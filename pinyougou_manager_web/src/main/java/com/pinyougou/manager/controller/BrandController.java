@@ -10,6 +10,8 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.pinyougou.pojo.TbBrand;
 import com.pinyougou.sellergoods.service.BrandService;
 
+import entity.PageResult;
+
 @Controller
 @ResponseBody
 @RequestMapping("/brand")
@@ -21,5 +23,12 @@ public class BrandController {
 	@RequestMapping("/findAll")
 	public List<TbBrand> findAll() {
 		return brandService.findAll();
+	}
+	
+	@RequestMapping("/findByPage")
+	public PageResult findByPage(int currentPage,int pageSize) {
+		
+		PageResult pageResult = brandService.findByPage(currentPage, pageSize);
+		return pageResult;
 	}
 }

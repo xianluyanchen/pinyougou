@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.pinyougou.pojo.TbBrand;
 
+import entity.PageResult;
+
 /**
  * 品牌服务层接口
  * @author 98137
@@ -16,6 +18,8 @@ public interface BrandService {
 	 * @return
 	 */
 	 public List<TbBrand> findAll(); 
+	 
+	 public PageResult findByPage(int currentPage,int pageSize);
 
 	
 }
