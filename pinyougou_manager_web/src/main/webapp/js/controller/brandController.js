@@ -41,7 +41,7 @@
 		 $scope.delete = function(){
 		 
 		 if(confirm('确定删除？')){
-		 	brandService.delete($scope.selectedIds).success(
+		 	brandService.delete($scope.selectIds).success(
 		 		function(response){
 		 			if(response.success){
 		 			$scope.reloadList();

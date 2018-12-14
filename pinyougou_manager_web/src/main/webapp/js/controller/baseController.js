@@ -28,15 +28,15 @@ app.controller("baseController",function($scope){
 	} 
 	
 	 //定义选中的id集合
-	 $scope.selectedIds=[];
+	 $scope.selectIds=[];
 	 
 	 //genxin更新复选框
 	 $scope.updateSelected = function($event,id){
 	 	if($event.target.checked){
-	 		$scope.selectedIds.push(id);
+	 		$scope.selectIds.push(id);
 	 	}else{
-	 		var idx = $scope.selectedIds.indexOf(id);
-	 		$scope.selectedIds.splice(idx,1);
+	 		var idx = $scope.selectIds.indexOf(id);
+	 		$scope.selectIds.splice(idx,1);
 	 	}
 	 }
 })

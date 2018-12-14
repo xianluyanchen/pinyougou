@@ -76,5 +76,17 @@ app.controller('specificationController' ,function($scope,$controller   ,specifi
 			}			
 		);
 	}
+	
+	//添加表格行数、specification 的option编辑处
+	$scope.addTableRow = function(){
+		
+		  $scope.entity.specificationOptionList.push({});   
+
+	}
+	
+	//删除编辑option的行
+	$scope.deleteTableRow = function(index){
+		$scope.entity.specificationOptionList.splice(index,1);
+	}
     
 });	
