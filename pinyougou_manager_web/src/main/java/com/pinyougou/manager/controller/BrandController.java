@@ -13,7 +13,7 @@ import com.pinyougou.pojo.TbBrand;
 import com.pinyougou.sellergoods.service.BrandService;
 
 import entity.PageResult;
-import entity.ResultInformation;
+import entity.Result;
 
 @Controller
 @ResponseBody
@@ -32,25 +32,25 @@ public class BrandController {
 	}
 	
 	@RequestMapping("/delete")
-	public ResultInformation delete(long[] ids) {
+	public Result delete(long[] ids) {
 		try {
 			brandService.delete(ids);
-			return new ResultInformation(true,"删除成功！");
+			return new Result(true,"删除成功！");
 		} catch (Exception e) {
 			// TODO: handle exception
-			return new ResultInformation(false,"删除失败");
+			return new Result(false,"删除失败");
 		}
 	}
 	
 	@RequestMapping("/add")
-	public ResultInformation add(@RequestBody TbBrand brand) {
+	public Result add(@RequestBody TbBrand brand) {
 		try {
 			brandService.add(brand);
-			return new ResultInformation(true,"新增成功");
+			return new Result(true,"新增成功");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return new ResultInformation(false,"新增失败");
+			return new Result(false,"新增失败");
 		}
 	}
 	
@@ -73,13 +73,13 @@ public class BrandController {
 	}
 	
 	@RequestMapping("/update")
-	public ResultInformation update(@RequestBody TbBrand brand) {
+	public Result update(@RequestBody TbBrand brand) {
 		try {
 			brandService.update(brand);
-			return new ResultInformation(true,"修改成功");
+			return new Result(true,"修改成功");
 		} catch (Exception e) {
 			// TODO: handle exception
-			return new ResultInformation(false,"修改失败");
+			return new Result(false,"修改失败");
 		}
 
 		

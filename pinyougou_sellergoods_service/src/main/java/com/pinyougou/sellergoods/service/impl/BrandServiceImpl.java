@@ -15,7 +15,7 @@ import com.pinyougou.pojo.TbBrandExample.Criteria;
 import com.pinyougou.sellergoods.service.BrandService;
 
 import entity.PageResult;
-import entity.ResultInformation;
+import entity.Result;
 
 @Service
 @Transactional
