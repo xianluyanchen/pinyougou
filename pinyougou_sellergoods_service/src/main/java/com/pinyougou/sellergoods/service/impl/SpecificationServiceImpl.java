@@ -1,6 +1,8 @@
 package com.pinyougou.sellergoods.service.impl;
 
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.miemiedev.mybatis.paginator.domain.Order;
@@ -140,5 +142,13 @@ public class SpecificationServiceImpl implements SpecificationService {
 		Page<TbSpecification> page = (Page<TbSpecification>) specificationMapper.selectByExample(example);
 		return new PageResult(page.getTotal(), page.getResult());
 	}
+
+	@Override
+	public List<Map> selectSpecList() {
+		List<Map> selectSpecList = specificationMapper.selectSpecList();
+		return selectSpecList;
+	}
+	
+	
 
 }

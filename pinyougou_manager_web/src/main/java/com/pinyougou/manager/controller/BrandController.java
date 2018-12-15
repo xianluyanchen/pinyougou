@@ -1,6 +1,7 @@
 package com.pinyougou.manager.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -81,8 +82,15 @@ public class BrandController {
 			// TODO: handle exception
 			return new Result(false,"修改失败");
 		}
-
-		
-
+	}
+	
+	/**
+	 * 查询模板的中的品牌下拉框
+	 * @return
+	 */
+	@RequestMapping("/selectOptionList")
+	public List<Map> selectOptionList(){
+		List<Map> selectOptionList = brandService.selectOptionList();
+		return selectOptionList;
 	}
 }

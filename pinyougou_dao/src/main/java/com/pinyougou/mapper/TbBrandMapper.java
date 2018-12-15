@@ -6,6 +6,8 @@ import com.pinyougou.pojo.TbBrandExample;
 import entity.PageResult;
 
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface TbBrandMapper {
@@ -30,5 +32,10 @@ public interface TbBrandMapper {
     int updateByPrimaryKeySelective(TbBrand record);
 
     int updateByPrimaryKey(TbBrand record);
-
+    
+    /**
+     * 模板类型模块，查询品牌列表
+     * @return
+     */
+    List<Map> selectOptionList();
 }

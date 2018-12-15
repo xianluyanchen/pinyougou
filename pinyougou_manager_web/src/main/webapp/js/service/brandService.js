@@ -23,4 +23,7 @@ app.service("brandService",function($http){
 	this.add = function(entity){
 		return $http.post('../brand/add.do',entity)
 	}
+	this.selectOptionList = function(){
+		return $http.get('../brand/selectOptionList.do');
+	}
 })
